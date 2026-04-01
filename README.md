@@ -1,7 +1,7 @@
 # Instalar y arrancar
 crear directorio muddev y entrar dentro.
 
-Crear un virtual environment para evennia `python -m venv evenv`   
+Crear un virtual environment para evennia `python3 -m venv evenv`   
 
 Después, cada vez que quieras activar el entorno virtual (por ejemplo depués de reiniciar), `source evenv/bin/activate`
 
@@ -77,6 +77,50 @@ Llevar un objeto a un sitio
 
 # Ayuda
 `sethelp History = Hubo una vez un momento que.....`
+
+
+# Personalizar el juego (básicamente temas de idioma)
+
+
+## servicios
+- puerto 4000 telnet  (para jugar)    telnet localhost 4000
+- puerto 4001 websocket
+- puerto 4002 webserver   http://localhost:4002
+- administracion: http://localhost:4002/admin (entra con el usuario y contraseña de superuser)
+
+## idioma
+server/conf/settyngs.py
+```
+USE_I18N = True
+LANGUAGE_CODE = 'es'
+LOCALE_PATHS = '/home/jose/evennia/mygame/locale'
+```
+- Editar el fichero `locale/es/LC_MESSAGES/django.po
+```
+msgid "You see"
+msgstr "Ves"
+```
+- Una vez editado, tienes que compilarlo. Para ello necesitas `apt install gettext`
+```
+msgfmt django.po -o django.mo
+```
+
+## la base de datos
+sqlite3 evennia.db3
+
+## mijuego/commands/command.py
+Verás un ejemplo del código para "mirar". Hemos cogido el código de look, y lo hemos colocado aquí personalizando un poquito. Puedes ver el código de look original en: evennia/evennia/commands/default/general.py
+
+Para que cargue este comando, debemos ir al fichero `commands/default_cmdsets.py` y allí añadir el comando:
+
+- `from commands.command import CmdMirar, CmdCoger, CmdLoQueSea`, o bien: `from commands import command`
+- def at_cmdset_creation(self), al final del todo pone: `self.add(CmdMirar())` o bien: `self.add(command.CmdMirar())`
+
+## mijuego/typeclasses/objects.py
+Ahí hemos sobreescrito get_numbered_name para que nos devuelva bien los números de objetos (en caso de crear dos piedras en esa room)
+
+## mijuego/typeclasses/rooms.py
+Ahí se sobreescribe el evento de cómo se devuelve lo que se ve en la habitación `return_appearance` y así hemos personalizado cómo queremos verlo, primero el nombre, despues la descripción, las salidas, etc etc.
 
 
 
