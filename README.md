@@ -1,40 +1,86 @@
-# Welcome to Evennia!
+# Instalar y arrancar
+crear directorio muddev y entrar dentro.
 
-This is your game directory, set up to let you start with
-your new game right away. An overview of this directory is found here:
-https://github.com/evennia/evennia/wiki/Directory-Overview#the-game-directory
+Crear un virtual environment para evennia `python -m venv evenv`   
 
-You can delete this readme file when you've read it and you can
-re-arrange things in this game-directory to suit your own sense of
-organisation (the only exception is the directory structure of the
-`server/` directory, which Evennia expects). If you change the structure
-you must however also edit/add to your settings file to tell Evennia
-where to look for things.
+Después, cada vez que quieras activar el entorno virtual (por ejemplo depués de reiniciar), `source evenv/bin/activate`
 
-Your game's main configuration file is found in
-`server/conf/settings.py` (but you don't need to change it to get
-started). If you just created this directory (which means you'll already
-have a `virtualenv` running if you followed the default instructions),
-`cd` to this directory then initialize a new database using
 
-    evennia migrate
 
-To start the server, stand in this directory and run
+pip install evennia
+pip install evennia[extra]
+evennia --init mygame
 
-    evennia start
+evennia start
+evennia restart
+evennia stop
+evennia reboot
 
-This will start the server, logging output to the console. Make
-sure to create a superuser when asked. By default you can now connect
-to your new game using a MUD client on `localhost`, port `4000`.  You can
-also log into the web client by pointing a browser to
-`http://localhost:4001`.
+con log:  `evennia start -l`
 
-# Getting started
 
-From here on you might want to look at one of the beginner tutorials:
-http://github.com/evennia/evennia/wiki/Tutorials.
 
-Evennia's documentation is here:
-https://github.com/evennia/evennia/wiki.
 
-Enjoy!
+# Conectar
+
+
+convertirte en jugador `quell` superusuario `unquell`
+
+# Crear una habitacion
+
+`dig nombre = entrada,alias,alias;salida,alias`
+
+`dig house = large red door;door;in,to the outside;out`
+
+Y puede que le quieras cambiar el nombre.... verdad? si lo hiciste mal? pues `name #9 = casa` donde #9 es el id del objeto a cambiar
+# Crear una salida
+
+`open salida,alias = room`
+
+`open north;n = house`
+
+# Crear un objeto
+
+`create box`
+
+Renombrar objeto con `name box = gran caja;caja,box`
+
+verla en el inventario con el comando `i` y  dejarla en la room con el comando `drop box`
+
+podemos evitar que se pueda coger con `lock box = get:false()` recuerda: `unquell` para comportarte como jugador. Interesante: `set box/get_err_msg = Demasiado pesada para poder cogerla.`
+
+# Ver un elemento
+
+`examine house`
+
+`examine roca`
+
+## atributos persistentes:
+set #id/propiedad = valor
+
+`set roca/material = granito`
+
+`examine roca/material` 
+
+Para borrarlo: `set roca/material =`
+
+# Transportar a un sitio
+
+`teleport house` nos transporta a nosotros
+
+Llevar un objeto a un sitio
+
+`teleport #8 = here` llevará el objeto #8 a nuestra room
+
+# borrar elementos
+`del #8` o por ejemplo `delete roca` , o también `delete house` también podemos: `del 5-80` y nos eliminará los objetos del 5 al 80
+
+# Ayuda
+`sethelp History = Hubo una vez un momento que.....`
+
+
+
+
+
+
+
