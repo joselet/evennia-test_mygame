@@ -3,21 +3,27 @@ crear directorio muddev y entrar dentro.
 
 Crear un virtual environment para evennia `python3 -m venv evenv`   
 
-Después, cada vez que quieras activar el entorno virtual (por ejemplo depués de reiniciar), `source evenv/bin/activate`
+Instalar/iniciar/parar
 
-
-
+```
 pip install evennia
 pip install evennia[extra]
 evennia --init mygame
-
+cd mygame
 evennia start
 evennia restart
 evennia stop
 evennia reboot
-
+```
 con log:  `evennia start -l`
 
+Después de un reinicio del host:
+Cada vez que quieras activar el entorno virtual (por ejemplo depués de reiniciar)
+```
+source evenv/bin/activate
+cd mygame
+evennia start
+```
 
 
 
